@@ -40,8 +40,10 @@ class SpeedController : public IController
     double _ReqRightSpeed;
 
     double _LeftMotor;
+    double _RightMotor;
 
-    PID _LeftPID;    
+    PID _LeftPID;
+    PID _RightPID;
 };
 
 #endif
