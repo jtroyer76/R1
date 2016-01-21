@@ -1,5 +1,8 @@
+
 #include "SpeedController.h"
 #include "encoder.h"
+
+#include <PID_v1.h>
 
 #include <Arduino.h>
 
