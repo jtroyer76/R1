@@ -1,4 +1,3 @@
-
 #include "FirstBehavior.h"
 
 bool FirstBehavior::Assert()

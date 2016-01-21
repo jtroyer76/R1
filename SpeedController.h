@@ -3,13 +3,14 @@
 
 #include "IController.h"
 
+#include <PID_v1.h>
 #include <Arduino.h>
 
 #define SLOW_SPEED 25
 #define HALF_SPEED 50
 #define FULL_SPEED 80
 
-#define BACKUP_SLOW -10
+#define BACKUP_SLOW -25
 
 #define FORWARD 0
 #define TURN_RIGHT 25
@@ -19,26 +20,28 @@
 
 class SpeedController : public IController
 {
-  public:    
+  public:
+    SpeedController();
     void SetSpeed(char Speed, char TurnRate);    
     void Execute();
 
   private:
     void CalculateSpeed();
-    void pwmR(char pwm);
-    void pwmL(char pwm);
+    void pwmR(double pwm);
+    void pwmL(double pwm);
 
     char _LeftDirection;
     char _RightDirection;
 
-    byte _LeftSpeed;
-    byte _RightSpeed;
+    double _LeftSpeed;
+    double _RightSpeed;
 
-    byte _ReqLeftSpeed;
-    byte _ReqRightSpeed;
+    double _ReqLeftSpeed;
+    double _ReqRightSpeed;
 
-    int _leftacc, _rightacc;  /* accumulators for motor output values */
-    int _leftlast, _rightlast; /* history values for calculating derivative */
+    double _LeftMotor;
+
+    PID _LeftPID;    
 };
 
 #endif
