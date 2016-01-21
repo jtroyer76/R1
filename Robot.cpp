@@ -74,9 +74,7 @@ void Robot::Run()
   {
     if (_Behaviors[i]->Assert())
     {
-      if(_ActiveBehavior)
-        _ActiveBehavior->Suppress();
-        
+      _ActiveBehavior->Suppress();
       _ActiveBehavior = _Behaviors[i];
       _Behaviors[i]->Execute();
       break;

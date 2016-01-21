@@ -5,21 +5,22 @@
 
 #include <Arduino.h>
 
-enum Movement {
-  SLOW_SPEED,
-  HALF_SPEED,
-  FULL_SPEED,
-  TURN_RIGHT,
-  TURN_LEFT,
-  BACKUP_SLOW,
-  STOP
-};
+#define SLOW_SPEED 25
+#define HALF_SPEED 50
+#define FULL_SPEED 80
+
+#define BACKUP_SLOW -10
+
+#define FORWARD 0
+#define TURN_RIGHT 25
+#define TURN_LEFT -25
+
+#define STOP 0
 
 class SpeedController : public IController
 {
-  public:
-    void Go(Movement move);
-    void SetSpeed(char Left, char Right);
+  public:    
+    void SetSpeed(char Speed, char TurnRate);    
     void Execute();
 
   private:
@@ -27,11 +28,17 @@ class SpeedController : public IController
     void pwmR(char pwm);
     void pwmL(char pwm);
 
-    char _LeftSpeed;
-    char _RightSpeed;
-
     char _LeftDirection;
     char _RightDirection;
+
+    byte _LeftSpeed;
+    byte _RightSpeed;
+
+    byte _ReqLeftSpeed;
+    byte _ReqRightSpeed;
+
+    int _leftacc, _rightacc;  /* accumulators for motor output values */
+    int _leftlast, _rightlast; /* history values for calculating derivative */
 };
 
 #endif
